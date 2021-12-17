@@ -24,6 +24,12 @@ dependencies {
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.1'
 	// https://mvnrepository.com/artifact/javax.validation/validation-api
 	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+	// https://mvnrepository.com/artifact/com.h2database/h2
+	implementation group: 'com.h2database', name: 'h2', version: '2.0.202'
+	// https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+	implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.2.0'	
+	// https://mvnrepository.com/artifact/org.flywaydb/flyway-core
+	implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.2.2'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
