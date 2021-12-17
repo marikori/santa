@@ -26,8 +26,11 @@ components:
         - type: object
           properties:
             response:
-              type: string
-              description: Teammate's name.
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Teammate's name.
     
     SantaMappingObject:
       type: object

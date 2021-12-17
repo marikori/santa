@@ -61,12 +61,15 @@ public class SantaMappingObject   {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    if (o != null && getClass() == o.getClass()) {
+        SantaMappingObject santaMappingObject = (SantaMappingObject) o;
+        return Objects.equals(this.santa, santaMappingObject.santa) &&
+            Objects.equals(this.receiver, santaMappingObject.receiver);
+    } else if (o != null && o.getClass() == String.class) {
+        String name = (String) o;
+        return this.receiver.equals(name);
     }
-    SantaMappingObject santaMappingObject = (SantaMappingObject) o;
-    return Objects.equals(this.santa, santaMappingObject.santa) &&
-        Objects.equals(this.receiver, santaMappingObject.receiver);
+    return false;
   }
 
   @Override

@@ -3,44 +3,32 @@ package com.secret.santa.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
-import javax.validation.Valid;
 
 /**
- * SantasObjectAllOfResponse
+ * TeammateObjectAllOfResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-17T17:58:40.017983Z[Europe/Dublin]")
-public class SantasObjectAllOfResponse   {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-17T22:37:59.367673Z[Europe/Dublin]")
+public class TeammateObjectAllOfResponse   {
   @JsonProperty("name")
-  @Valid
-  private List<String> name = null;
+  private String name;
 
-  public SantasObjectAllOfResponse name(List<String> name) {
+  public TeammateObjectAllOfResponse name(String name) {
     this.name = name;
     return this;
   }
 
-  public SantasObjectAllOfResponse addNameItem(String nameItem) {
-    if (this.name == null) {
-      this.name = new ArrayList<>();
-    }
-    this.name.add(nameItem);
-    return this;
-  }
-
   /**
-   * Get name
+   * Teammate's name.
    * @return name
   */
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Teammate's name.")
 
 
-  public List<String> getName() {
+  public String getName() {
     return name;
   }
 
-  public void setName(List<String> name) {
+  public void setName(String name) {
     this.name = name;
   }
 
@@ -53,8 +41,8 @@ public class SantasObjectAllOfResponse   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SantasObjectAllOfResponse santasObjectAllOfResponse = (SantasObjectAllOfResponse) o;
-    return Objects.equals(this.name, santasObjectAllOfResponse.name);
+    TeammateObjectAllOfResponse teammateObjectAllOfResponse = (TeammateObjectAllOfResponse) o;
+    return Objects.equals(this.name, teammateObjectAllOfResponse.name);
   }
 
   @Override
@@ -65,7 +53,7 @@ public class SantasObjectAllOfResponse   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SantasObjectAllOfResponse {\n");
+    sb.append("class TeammateObjectAllOfResponse {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");

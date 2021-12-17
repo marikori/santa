@@ -3,17 +3,18 @@ package com.secret.santa.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.Valid;
 
 /**
  * TeammateObject
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-17T19:48:45.072744Z[Europe/Dublin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-17T22:37:59.367673Z[Europe/Dublin]")
 public class TeammateObject   {
   @JsonProperty("status")
   private Integer status;
 
   @JsonProperty("response")
-  private String response;
+  private TeammateObjectAllOfResponse response;
 
   public TeammateObject status(Integer status) {
     this.status = status;
@@ -35,23 +36,24 @@ public class TeammateObject   {
     this.status = status;
   }
 
-  public TeammateObject response(String response) {
+  public TeammateObject response(TeammateObjectAllOfResponse response) {
     this.response = response;
     return this;
   }
 
   /**
-   * Teammate's name.
+   * Get response
    * @return response
   */
-  @ApiModelProperty(value = "Teammate's name.")
+  @ApiModelProperty(value = "")
 
+  @Valid
 
-  public String getResponse() {
+  public TeammateObjectAllOfResponse getResponse() {
     return response;
   }
 
-  public void setResponse(String response) {
+  public void setResponse(TeammateObjectAllOfResponse response) {
     this.response = response;
   }
 
