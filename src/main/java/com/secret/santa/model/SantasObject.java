@@ -3,18 +3,21 @@ package com.secret.santa.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.Valid;
 
 /**
  * SantasObject
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-17T17:58:40.017983Z[Europe/Dublin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-17T19:41:02.633466Z[Europe/Dublin]")
 public class SantasObject   {
   @JsonProperty("status")
   private Integer status;
 
   @JsonProperty("response")
-  private SantasObjectAllOfResponse response;
+  @Valid
+  private List<SantaMappingObject> response = null;
 
   public SantasObject status(Integer status) {
     this.status = status;
@@ -36,8 +39,16 @@ public class SantasObject   {
     this.status = status;
   }
 
-  public SantasObject response(SantasObjectAllOfResponse response) {
+  public SantasObject response(List<SantaMappingObject> response) {
     this.response = response;
+    return this;
+  }
+
+  public SantasObject addResponseItem(SantaMappingObject responseItem) {
+    if (this.response == null) {
+      this.response = new ArrayList<>();
+    }
+    this.response.add(responseItem);
     return this;
   }
 
@@ -49,11 +60,11 @@ public class SantasObject   {
 
   @Valid
 
-  public SantasObjectAllOfResponse getResponse() {
+  public List<SantaMappingObject> getResponse() {
     return response;
   }
 
-  public void setResponse(SantasObjectAllOfResponse response) {
+  public void setResponse(List<SantaMappingObject> response) {
     this.response = response;
   }
 

@@ -26,11 +26,18 @@ components:
         - type: object
           properties:
             response:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: Teammate name.
+              type: string
+              description: Teammate's name.
+    
+    SantaMappingObject:
+      type: object
+      properties:
+        santa:
+          type: string
+          description: Santa's name.
+        receiver:
+          type: string
+          description: Name of person who gets the gift from Santa.
     
     SantasObject:
       allOf:
@@ -38,13 +45,9 @@ components:
         - type: object
           properties:
             response:
-              type: object
-              properties:
-                name:
-                  type: array
-                  items:
-                    type: string
-                    description: Santa name.
+              type: array
+              items:
+                $ref: '#/components/schemas/SantaMappingObject'
       
   
   parameters:
@@ -55,6 +58,15 @@ components:
         type: string
       required: true
       description: Teammate name.
+    
+    YearParam:
+      in: query
+      name: year
+      schema:
+        type: integer
+        format: int64
+      required: false
+      description: Year - default current year.
   
   responses:
     TemateResp:
