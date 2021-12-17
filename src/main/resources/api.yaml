@@ -1,0 +1,91 @@
+openapi: 3.0.0
+
+info:
+  version: 1.0.0
+  title: Secret santa.
+  description: Secret santa.
+
+servers:
+  - description: Local
+    url: https://localhost/api/v1/santa
+
+components:
+  schemas:
+    BaseObject:
+      description: Common fields from general response.
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: Status.
+    
+    TeammateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseObject'
+        - type: object
+          properties:
+            response:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Teammate name.
+    
+    SantasObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseObject'
+        - type: object
+          properties:
+            response:
+              type: object
+              properties:
+                name:
+                  type: array
+                  items:
+                    type: string
+                    description: Santa name.
+      
+  
+  parameters:
+    TeammateParam:
+      in: query
+      name: name
+      schema:
+        type: string
+      required: true
+      description: Teammate name.
+  
+  responses:
+    TemateResp:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TeammateObject'
+    
+    SantasResp:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SantasObject'
+
+paths:
+  /teammate:
+    post:
+      summary: Register a new teammate.
+      description: Service creates a new entity in the game.
+      parameters:
+        - $ref: '#/components/parameters/TeammateParam'
+      responses:
+        201:
+          $ref: '#/components/responses/TemateResp'
+  
+  /santas:
+    get:
+      summary: Register a new teammate.
+      description: Service creates a new entity in the game.
+      responses:
+        200:
+          $ref: '#/components/responses/SantasResp'
