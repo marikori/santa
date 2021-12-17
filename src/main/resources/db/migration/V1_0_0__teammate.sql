@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS team_mate (
     -- This is an auto incrementing bigint.
-    id BIGSERIAL PRIMARY KEY,
+    id BIGSERIAL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR,
     current_santa VARCHAR,
    	one_year_back_santa VARCHAR,
