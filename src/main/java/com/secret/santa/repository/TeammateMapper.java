@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.secret.santa.model.SantaMappingObject;
-import com.secret.santa.model.TeammateObjectAllOfResponse;
 
 @Mapper
 public interface TeammateMapper {
@@ -16,7 +15,7 @@ public interface TeammateMapper {
     int createTeammate(@Param("name") String name);
     
     @Select("SELECT name FROM team_mate")
-    List<TeammateObjectAllOfResponse> getTeammates();
+    List<String> getTeammates();
     
     @Select("SELECT\n"
             + "    receiner_table.name AS receiver,\n"

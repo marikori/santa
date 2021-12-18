@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.secret.santa.exceptions.BadRequestException;
 import com.secret.santa.model.SantaMappingObject;
-import com.secret.santa.model.TeammateObjectAllOfResponse;
 
 @Repository
 public class TeammateRepository {
@@ -18,10 +17,10 @@ public class TeammateRepository {
     }
     
     public int createTeammate(String name) {
-        return teammateMapper.createTeammate(name);
+        return 1; //teammateMapper.createTeammate(name);
     }
     
-    public List<TeammateObjectAllOfResponse> getTeammates(){
+    public List<String> getTeammates(){
         return teammateMapper.getTeammates();
     }
     
