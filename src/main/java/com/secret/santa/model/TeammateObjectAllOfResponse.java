@@ -38,11 +38,15 @@ public class TeammateObjectAllOfResponse   {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+    if (o != null && getClass() == o.getClass()) {
+        TeammateObjectAllOfResponse teammateObjectAllOfResponse = (TeammateObjectAllOfResponse) o;
+        return Objects.equals(this.name, teammateObjectAllOfResponse.name);
+    } else if (o != null && o.getClass() == SantaMappingObject.class) {
+        SantaMappingObject santaMappingObject = (SantaMappingObject) o;
+        return Objects.equals(this.name, santaMappingObject.getReceiver());
     }
-    TeammateObjectAllOfResponse teammateObjectAllOfResponse = (TeammateObjectAllOfResponse) o;
-    return Objects.equals(this.name, teammateObjectAllOfResponse.name);
+    
+    return false;
   }
 
   @Override
