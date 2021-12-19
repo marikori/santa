@@ -44,11 +44,21 @@ public class TeammateService {
         this.teammateRepository = teammateRepository;
     }
     
+    
     public SantasObject getSantasObject() {
         return new SantasObject()
                 .status(HttpStatus.OK.value())
                 .response(teammateRepository.getCurrentSantaMappings());
     }
+    
+    
+    public SantasObject resetSantasObjects() {
+        teammateRepository.moveSantasNewYear();
+        return new SantasObject()
+                .status(HttpStatus.OK.value())
+                .response(teammateRepository.getCurrentSantaMappings());
+    }
+    
     
     public TeammateObject createTeammate(String name) {
         
@@ -101,18 +111,16 @@ public class TeammateService {
             visualize(allowedEdgesGraph, "allowedEdgesGraph.png");
         }
         
-        Map<String, List<String>> santaPath = new LinkedHashMap<>();
-        santaPath.put(teammates.get(0), new ArrayList<>());
-        // jgrapht does not have Hamiltonian cycle algorithm :`( - had to implement my own
-        updateCurrentSantaNames(getSantaPathGraph(allowedEdgesGraph, santaPath));
+        if (teammates.size() > 1) {
+            Map<String, List<String>> santaPath = new LinkedHashMap<>();
+            santaPath.put(teammates.get(0), new ArrayList<>());
+            // jgrapht does not have Hamiltonian cycle algorithm :`( - had to implement my own
+            updateCurrentSantaNames(getSantaPathGraph(allowedEdgesGraph, santaPath));
+        }
     }
     
     
     private void updateCurrentSantaNames(Map<String, List<String>> santaPath) {
-        if (santaPath.keySet().size() < 2) {
-            return;
-        }
-        
         String firstSanta = "";
         String receiver = "";
         
@@ -151,8 +159,10 @@ public class TeammateService {
         if (allowedHeads.isEmpty()) {
             // there is no edge which would not have already been tried
             
-            if (santaPath.keySet().size() < allowedEdgesGraph.vertexSet().size()) {
-                // this is not the last vertex - try to move back to previous to see if there are any vertices to explore
+            if ((santaPath.keySet().size() < allowedEdgesGraph.vertexSet().size()) 
+                    || ! allowedEdgesGraph.containsEdge(lastHeadVertex.getKey(), santaPath.entrySet().iterator().next().getKey())) {
+                // this is not the last vertex OR there is no edge this (last) vertex and the root vertex 
+                // try to move back to previous to see if there are any vertices to explore
                 santaPathIterator.remove();
             
             } else {

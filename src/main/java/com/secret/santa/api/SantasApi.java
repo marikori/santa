@@ -13,8 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
+
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-17T17:58:40.017983Z[Europe/Dublin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-19T02:04:13.275630Z[Europe/Dublin]")
 @Validated
 @Api(value = "santas", tags = { "santas" })
 public interface SantasApi {
@@ -24,12 +25,12 @@ public interface SantasApi {
     }
 
     /**
-     * GET /santas : Register a new teammate.
-     * Service creates a new entity in the game.
+     * GET /santas : Return santas with receivers.
+     * Service returns santas with receivers.
      *
      * @return OK (status code 200)
      */
-    @ApiOperation(value = "Register a new teammate.", nickname = "santasGet", notes = "Service creates a new entity in the game.", response = SantasObject.class, tags={  })
+    @ApiOperation(value = "Return santas with receivers.", nickname = "santasGet", notes = "Service returns santas with receivers.", response = SantasObject.class, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "OK", response = SantasObject.class) })
     @RequestMapping(
@@ -38,6 +39,35 @@ public interface SantasApi {
         produces = { "application/json" }
     )
     default ResponseEntity<SantasObject> santasGet() {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "null";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * PUT /santas/reset_year : Reset year. To be used after Secret Santa party.
+     * Service cleans current santas and send all santas (current_year - 1). Note taht only two years back are being kept.
+     *
+     * @return OK (status code 200)
+     */
+    @ApiOperation(value = "Reset year. To be used after Secret Santa party.", nickname = "santasResetYearPut", notes = "Service cleans current santas and send all santas (current_year - 1). Note taht only two years back are being kept.", response = SantasObject.class, tags={  })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "OK", response = SantasObject.class) })
+    @RequestMapping(
+        method = RequestMethod.PUT,
+        value = "/santas/reset_year",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<SantasObject> santasResetYearPut() {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

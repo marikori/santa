@@ -34,4 +34,10 @@ public class SantasApiController implements SantasApi {
         SantasObject response = teammateService.getSantasObject();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    
+    @Override
+    public ResponseEntity<SantasObject> santasResetYearPut() {
+        SantasObject response = teammateService.resetSantasObjects();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

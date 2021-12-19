@@ -51,16 +51,12 @@ public interface TeammateMapper {
             + "    receiner_table.two_years_back_santa = santa_table.name")
     public List<SantaMappingObject> getSantasTwoYearBack();
     
-    @Select("SELECT\n"
-            + "    receiver_table.name,\n"
-            + "    one_year_back_santa_table.name AS one_year_back_santa,\n"
-            + "    two_years_back_santa_table.name AS two_years_back_santa\n"
-            + "FROM\n"
-            + "    team_mate AS receiver_table\n"
-            + "INNER JOIN team_mate AS one_year_back_santa_table\n"
-            + "INNER JOIN team_mate AS two_years_back_santa_table\n"
-            + "WHERE\n"
-            + "    receiver_table.one_year_back_santa = one_year_back_santa_table.name\n"
-            + "    AND receiver_table.name = two_years_back_santa_table.name")
-    public List<List<String>> getPastSantaMappings();
+    @Update("UPDATE team_mate SET two_years_back_santa = one_year_back_santa")
+    public int moveOneYearBackSanta();
+    
+    @Update("UPDATE team_mate SET one_year_back_santa = current_santa")
+    public int moveCurrentSanta();
+    
+    @Update("UPDATE team_mate SET current_santa = NULL")
+    public int cleanCurrentSanta();
 }

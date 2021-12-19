@@ -48,4 +48,10 @@ public class TeammateRepository {
         
         return retVal;
     }
+    
+    public int moveSantasNewYear() {
+        return teammateMapper.moveOneYearBackSanta() 
+                + teammateMapper.moveCurrentSanta() 
+                + teammateMapper.cleanCurrentSanta();
+    }
 }

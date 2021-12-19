@@ -96,8 +96,17 @@ paths:
   
   /santas:
     get:
-      summary: Register a new teammate.
-      description: Service creates a new entity in the game.
+      summary: Return santas with receivers.
+      description: Service returns santas with receivers.
       responses:
         200:
           $ref: '#/components/responses/SantasResp'
+  
+  /santas/reset_year:
+    put:
+      summary: Reset year. To be used after Secret Santa party.
+      description: Service cleans current santas and send all santas (current_year - 1). Note taht only two years back are being kept.
+      responses:
+        200:
+          $ref: '#/components/responses/SantasResp'
+      
