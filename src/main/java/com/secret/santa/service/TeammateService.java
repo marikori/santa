@@ -30,6 +30,7 @@ import com.mxgraph.util.mxCellRenderer;
 import com.secret.santa.exceptions.BadRequestException;
 import com.secret.santa.exceptions.InternalServerErrorException;
 import com.secret.santa.exceptions.OrePropertyException;
+import com.secret.santa.model.SantasObject;
 import com.secret.santa.model.TeammateObject;
 import com.secret.santa.repository.TeammateRepository;
 
@@ -41,6 +42,12 @@ public class TeammateService {
     
     public TeammateService(TeammateRepository teammateRepository) {
         this.teammateRepository = teammateRepository;
+    }
+    
+    public SantasObject getSantasObject() {
+        return new SantasObject()
+                .status(HttpStatus.OK.value())
+                .response(teammateRepository.getCurrentSantaMappings());
     }
     
     public TeammateObject createTeammate(String name) {

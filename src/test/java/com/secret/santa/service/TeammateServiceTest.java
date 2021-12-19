@@ -2,33 +2,39 @@ package com.secret.santa.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.http.HttpStatus;
+
+import com.secret.santa.model.SantaMappingObject;
+import com.secret.santa.model.SantasObject;
+import com.secret.santa.repository.TeammateRepository;
 
 class TeammateServiceTest {
-
-    @BeforeAll
-    static void setUpBeforeClass() throws Exception {
-    }
-
-    @AfterAll
-    static void tearDownAfterClass() throws Exception {
-    }
-
+    
+    private TeammateRepository teammateRepositoryMock;
+    private TeammateService teammateService;
+    
+    private SantaMappingObject santaMappingObject1 = new SantaMappingObject().santa("santa1").receiver("receiver1");
+    private SantaMappingObject santaMappingObject2 = new SantaMappingObject().santa("santa2").receiver("receiver2");
+    private List<SantaMappingObject> listOfSantaMappingObjects = new ArrayList<>();
+    
     @BeforeEach
     void setUp() throws Exception {
+        teammateRepositoryMock = Mockito.mock(TeammateRepository.class);
+        teammateService = new TeammateService(teammateRepositoryMock);
+        listOfSantaMappingObjects.add(santaMappingObject1);
+        listOfSantaMappingObjects.add(santaMappingObject2);
     }
-
-    @AfterEach
-    void tearDown() throws Exception {
-    }
-
+    
     @Test
-    void test() {
-        fail("Not yet implemented");
+    void testGetSantasObject() {
+        Mockito.when(teammateRepositoryMock.getCurrentSantaMappings()).thenReturn(listOfSantaMappingObjects);
+        assertEquals(new SantasObject().status(HttpStatus.OK.value()).response(listOfSantaMappingObjects), teammateService.getSantasObject());
     }
 
 }
