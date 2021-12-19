@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.mxgraph.layout.mxCircleLayout;
@@ -68,7 +67,7 @@ public class TeammateService {
                         .status(HttpStatus.CREATED.value())
                         .response(name);
                 
-                calculateGame(true);
+                calculateGame(true, teammateRepository.getTeammates(), teammateRepository.getPastSantaMappings());
                 
                 return retVal;
                 
@@ -82,12 +81,8 @@ public class TeammateService {
     }
     
     
-    @Async("calculateGameExec")
-    private void calculateGame(boolean visualize) {
+    private void calculateGame(boolean visualize, List<String> teammates, Map<String, List<String>> pastSantaMappings) {
         DefaultDirectedGraph<String, SantaEdge> allowedEdgesGraph = new DefaultDirectedGraph<>(SantaEdge.class);
-        
-        List<String> teammates = teammateRepository.getTeammates();
-        Map<String, List<String>> pastSantaMappings = teammateRepository.getPastSantaMappings();
         
         List<String> teammatesInGraph = new ArrayList<>();
         
@@ -117,23 +112,6 @@ public class TeammateService {
             // jgrapht does not have Hamiltonian cycle algorithm :`( - had to implement my own
             updateCurrentSantaNames(getSantaPathGraph(allowedEdgesGraph, santaPath));
         }
-    }
-    
-    
-    private void updateCurrentSantaNames(Map<String, List<String>> santaPath) {
-        String firstSanta = "";
-        String receiver = "";
-        
-        for (String santa : santaPath.keySet()) {
-            firstSanta = firstSanta.isEmpty() ? santa : firstSanta;
-            
-            if (! receiver.isEmpty())
-                teammateRepository.updateCurrentSantaName(receiver, santa);
-            
-            receiver = santa;
-        }
-        
-        teammateRepository.updateCurrentSantaName(receiver, firstSanta);
     }
     
     
@@ -188,6 +166,23 @@ public class TeammateService {
         }
         
         return retVal;
+    }
+    
+    
+    private void updateCurrentSantaNames(Map<String, List<String>> santaPath) {
+        String firstSanta = "";
+        String receiver = "";
+        
+        for (String santa : santaPath.keySet()) {
+            firstSanta = firstSanta.isEmpty() ? santa : firstSanta;
+            
+            if (! receiver.isEmpty())
+                teammateRepository.updateCurrentSantaName(receiver, santa);
+            
+            receiver = santa;
+        }
+        
+        teammateRepository.updateCurrentSantaName(receiver, firstSanta);
     }
     
     
