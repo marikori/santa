@@ -12,12 +12,12 @@ ALTER TABLE team_mate
 
 ALTER TABLE team_mate
     ADD CONSTRAINT team_mate_current_fk FOREIGN KEY (current_santa) 
-        REFERENCES team_mate;
+        REFERENCES team_mate(name);
 
 ALTER TABLE team_mate
     ADD CONSTRAINT team_mate_one_fk FOREIGN KEY (one_year_back_santa) 
-        REFERENCES team_mate;
+        REFERENCES team_mate(name);
 
 ALTER TABLE team_mate
     ADD CONSTRAINT team_mate_two_fk FOREIGN KEY (two_years_back_santa) 
-        REFERENCES team_mate;
+        REFERENCES team_mate(name);

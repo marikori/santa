@@ -1,11 +1,12 @@
 package com.secret.santa.repository;
 
-import java.time.Year;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.secret.santa.exceptions.BadRequestException;
 import com.secret.santa.model.SantaMappingObject;
 
 @Repository
@@ -17,25 +18,34 @@ public class TeammateRepository {
     }
     
     public int createTeammate(String name) {
-        return 1; //teammateMapper.createTeammate(name);
+        return teammateMapper.createTeammate(name);
+    }
+    
+    public int updateCurrentSantaName(String receiverName, String santaName) {
+        return teammateMapper.updateCurrentSantaName(receiverName, santaName);
     }
     
     public List<String> getTeammates(){
         return teammateMapper.getTeammates();
     }
     
-    public List<SantaMappingObject> getSantaMappings(int year) {
-        int currentYear = Year.now().getValue();
-        if (currentYear - year == 0) {
-            return teammateMapper.getSantasCurrentYear();
-        } else if (currentYear - year == 1) {
-            return teammateMapper.getSantasOneYearBack();
-        } else if (currentYear - year == 2) {
-            return teammateMapper.getSantasTwoYearBack();
-        } else if (currentYear - year == 3) {
-            return teammateMapper.getSantasThreeYearBack();
+    public List<SantaMappingObject> getCurrentSantaMappings() {
+        return teammateMapper.getSantasCurrentYear();
+    }
+    
+    public Map<String, List<String>> getPastSantaMappings() {
+        Map<String, List<String>> retVal = new HashMap<>();
+        
+        for (SantaMappingObject santaMapping : teammateMapper.getSantasOneYearBack()) {
+            List<String> notAllowedSantas = new ArrayList<>();
+            notAllowedSantas.add(santaMapping.getSanta());
+            retVal.put(santaMapping.getReceiver(), notAllowedSantas);
         }
         
-        throw new BadRequestException();
+        for (SantaMappingObject santaMapping : teammateMapper.getSantasTwoYearBack()) {
+            retVal.get(santaMapping.getReceiver()).add(santaMapping.getSanta());
+        }
+        
+        return retVal;
     }
 }

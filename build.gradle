@@ -30,6 +30,10 @@ dependencies {
 	implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.2.0'	
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-core
 	implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.2.2'
+	// https://mvnrepository.com/artifact/org.jgrapht/jgrapht-core
+	implementation group: 'org.jgrapht', name: 'jgrapht-core', version: '1.5.1'
+	// https://mvnrepository.com/artifact/org.jgrapht/jgrapht-core
+	implementation group: 'org.jgrapht', name: 'jgrapht-ext', version: '1.5.1'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
