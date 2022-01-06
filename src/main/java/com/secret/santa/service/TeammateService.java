@@ -109,7 +109,7 @@ public class TeammateService {
         if (teammates.size() > 1) {
             Map<String, List<String>> santaPath = new LinkedHashMap<>();
             santaPath.put(teammates.get(0), new ArrayList<>());
-            // jgrapht does not have Hamiltonian cycle algorithm :`( - had to implement my own
+            // jgrapht does not have Hamiltonian cycle algorithm for directed graphs :`( - had to implement my own
             updateCurrentSantaNames(getSantaPathGraph(allowedEdgesGraph, santaPath));
         }
     }
