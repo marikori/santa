@@ -170,19 +170,20 @@ public class TeammateService {
     
     
     private void updateCurrentSantaNames(Map<String, List<String>> santaPath) {
-        String firstSanta = "";
+        String firstReceiver = "";
         String receiver = "";
         
         for (String santa : santaPath.keySet()) {
-            firstSanta = firstSanta.isEmpty() ? santa : firstSanta;
             
             if (! receiver.isEmpty())
                 teammateRepository.updateCurrentSantaName(receiver, santa);
+            else
+                firstReceiver = santa;
             
             receiver = santa;
         }
         
-        teammateRepository.updateCurrentSantaName(receiver, firstSanta);
+        teammateRepository.updateCurrentSantaName(receiver, firstReceiver);
     }
     
     
